@@ -5,7 +5,8 @@ library(fpc) #para hacer el plotcluster
 library(NbClust) #Para determinar el n?mero de clusters ?ptimo
 library(factoextra) #Para hacer gr?ficos bonitos de clustering
 library(VIM)
-
+library("ggpubr")
+library("ggplot2")
 
 #clustering
 #k-meanss
@@ -33,3 +34,21 @@ plotcluster(datos[,1:5],km$cluster)
 
 silkm<-silhouette(km$cluster,dist(datos[,1:5]))
 mean(silkm[,3])
+
+#Visualizacion de las k-medias
+fviz_cluster(km, data = datos[,1:5],geom = "point", ellipse.type = "norm")
+
+#tendencia central 
+mean(g1$popularit)
+median(g1$popularity)
+str(datos)
+
+ggdensity(datos$runtime, 
+          main = "runtime",
+          xlab = "time")
+#correlaciones 
+cor(datos$budget,datos$revenue, method = c("pearson", "kendall", "spearman"))
+
+cor(datos$revenue,datos$runtime, method = c("pearson", "kendall", "spearman"))
+
+cor(datos$budget,datos$runtime, method = c("pearson", "kendall", "spearman"))
